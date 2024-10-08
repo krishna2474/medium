@@ -1,4 +1,4 @@
-import { Auth, SigninAuth } from "../components/SigninAuth";
+import { SigninAuth } from "../components/SigninAuth";
 import { Quote } from "../components/Quote";
 
 export const Signin = () => {
