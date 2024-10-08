@@ -27,7 +27,7 @@ export const useBlogs = () => {
         setLoading(false);
       })
       .catch((err) => {
-        return;
+        return err;
       });
   }, []);
   return { loading, blogs };

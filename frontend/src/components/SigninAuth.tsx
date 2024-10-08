@@ -1,10 +1,10 @@
 import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { SigninInputs, SignupInputs } from "@krishnakukreja85/medium-common";
+import { SigninInputs } from "@krishnakukreja85/medium-common";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
-export const Auth = () => {
+export const SigninAuth = () => {
   const navigate = useNavigate();
   async function sendRequest() {
     try {

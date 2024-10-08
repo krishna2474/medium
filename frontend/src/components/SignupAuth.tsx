@@ -4,7 +4,7 @@ import { SignupInputs } from "@krishnakukreja85/medium-common";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
-export const Auth = () => {
+export const SignupAuth = () => {
   const navigate = useNavigate();
   async function sendRequest() {
     try {
