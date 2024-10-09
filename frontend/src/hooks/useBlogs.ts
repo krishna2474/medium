@@ -25,18 +25,20 @@ export const useBlogs = () => {
         },
       })
       .then((response) => {
-        console.log(response);
-
         if (response.status == 403) {
           nav("/signin");
         }
         setBlogs(response.data.blogs);
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
-
-        return err;
+      .catch((error) => {
+        if (error.response && error.response.status === 403) {
+          nav("/signin"); // Navigate to signin if status is 403
+        } else {
+          console.error("Error fetching blogs:", error);
+          // Handle other errors if needed
+          setLoading(false);
+        }
       });
   }, []);
   return { loading, blogs };
