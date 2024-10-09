@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 export interface Blog {
   content: string;
   title: string;
@@ -12,6 +13,7 @@ export interface Blog {
   publishedDate: string;
 }
 export const useBlog = ({ id }: { id: string }) => {
+  const nav = useNavigate();
   const [loading, setLoading] = useState(true);
   const [blog, setBlog] = useState<Blog>({
     content: "",
@@ -36,8 +38,14 @@ export const useBlog = ({ id }: { id: string }) => {
         setBlog(response.data.blog);
         setLoading(false);
       })
-      .catch((err) => {
-        return err;
+      .catch((error) => {
+        if (error.response && error.response.status === 403) {
+          nav("/signin"); // Navigate to signin if status is 403
+        } else {
+          console.error("Error fetching blogs:", error);
+          // Handle other errors if needed
+          setLoading(false);
+        }
       });
   }, []);
   return { loading, blog };

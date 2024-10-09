@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 interface BlogCardProps {
   id: string;
@@ -7,6 +8,7 @@ interface BlogCardProps {
   content: string;
   publishedDate?: string;
 }
+
 export const Avatar = ({
   name,
   size,
@@ -14,19 +16,46 @@ export const Avatar = ({
   name: string;
   size: "small" | "big";
 }) => {
+  const nav = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    setIsMenuOpen(false);
+    localStorage.removeItem("token");
+    nav("/signin");
+  };
+
   return (
-    <div
-      className={`relative inline-flex items-center justify-center ${
-        size == "small" ? "w-7 h-7" : "w-10 h-10"
-      } overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600`}
-    >
-      <span
-        className={`font-medium text-gray-600 dark:text-gray-300 ${
-          size == "small" ? "text-xs" : "text-md"
-        }`}
+    <div className="relative inline-block">
+      <div
+        className={`inline-flex items-center justify-center ${
+          size === "small" ? "w-7 h-7" : "w-10 h-10"
+        } overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 cursor-pointer`}
+        onClick={toggleMenu} // Add click handler to toggle menu
       >
-        {name[0]}
-      </span>
+        <span
+          className={`font-medium text-gray-600 dark:text-gray-300 ${
+            size === "small" ? "text-xs" : "text-md"
+          }`}
+        >
+          {name[0]}
+        </span>
+      </div>
+
+      {isMenuOpen && (
+        <div className="absolute right-0 mt-2 mr-2 w-32 bg-white rounded-md shadow-xl">
+          <button
+            onClick={handleLogout}
+            className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+          >
+            Logout
+          </button>
+        </div>
+      )}
     </div>
   );
 };
