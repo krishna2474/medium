@@ -25,6 +25,8 @@ export const useBlogs = () => {
         },
       })
       .then((response) => {
+        console.log(response);
+
         if (response.status == 403) {
           nav("/signin");
         }
@@ -32,6 +34,8 @@ export const useBlogs = () => {
         setLoading(false);
       })
       .catch((err) => {
+        console.log(err);
+
         return err;
       });
   }, []);
