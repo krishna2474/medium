@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 interface Blogs {
   content: string;
   title: string;
@@ -13,6 +14,7 @@ interface Blogs {
 export const useBlogs = () => {
   const [loading, setLoading] = useState(true);
   const [blogs, setBlogs] = useState<Blogs[]>([]);
+  const nav = useNavigate();
   useEffect(() => {
     console.log(localStorage.getItem("token"));
 
@@ -23,6 +25,9 @@ export const useBlogs = () => {
         },
       })
       .then((response) => {
+        if (response.status == 403) {
+          nav("/signin");
+        }
         setBlogs(response.data.blogs);
         setLoading(false);
       })
