@@ -70,7 +70,7 @@ export const BlogCard = ({
   {
     return (
       <Link to={`/blog/${id}`}>
-        <div className="border-b border-slate-300 pb-4 pt-4">
+        <div className="border-b border-slate-300 pb-4 pt-4 pl-4 pr-4">
           <div className="flex items-center">
             <div className="flex justify-center flex-col">
               <Avatar name={authorName} size="small" />
