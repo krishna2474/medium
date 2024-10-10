@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const BlogEditor = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [disabled, setDisabled] = useState(false);
   const nav = useNavigate();
   return (
     <div className="flex flex-col items-center w-full">
@@ -26,7 +27,9 @@ export const BlogEditor = () => {
       ></textarea>
       <button
         type="submit"
+        disabled={disabled}
         onClick={async () => {
+          setDisabled(true);
           const res = await axios.post(
             `${BACKEND_URL}/api/v1/blog`,
             {

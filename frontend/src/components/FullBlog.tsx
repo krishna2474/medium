@@ -9,7 +9,8 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
           <div className="col-span-8  ">
             <div className="text-4xl font-extrabold">{blog.title}</div>
             <div className="text-slate-500 pt-2">
-              Posted on {blog.publishedDate.substring(0, 10)}
+              {new Date(blog.publishedDate).toLocaleDateString()}{" "}
+              {new Date(blog.publishedDate).toLocaleTimeString()}
             </div>
             <div className="text-xl pt-4">{blog.content}</div>
           </div>
