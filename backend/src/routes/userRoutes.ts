@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { sign } from "hono/jwt";
 import { signupInputs, signinInput } from "@krishnakukreja85/medium-common";
+
 export const userRouter = new Hono<{
   Bindings: {
     DATABASE_URL: string;
@@ -40,6 +41,14 @@ userRouter.post("/signup", async (c) => {
         password: body.password,
       },
     });
+    const now = new Date().toLocaleString();
+    await prisma.login.create({
+      data: {
+        userId: resp.id,
+        firstName: body.firstName,
+        time: now,
+      },
+    });
     const token = await sign({ id: resp.id }, c.env.JWT_SECRET);
 
     return c.json({ msg: "USer Signed Up Successfully!", token: token });
@@ -73,6 +82,14 @@ userRouter.post("/signin", async (c) => {
       error: "User Not Found",
     });
   } else {
+    await prisma.login.create({
+      data: {
+        userId: user.id,
+        firstName: user.firstName,
+        time: new Date().toLocaleString(),
+      },
+    });
+
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
     return c.json({ token: jwt });
   }

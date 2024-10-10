@@ -14,11 +14,7 @@ export const SigninAuth = () => {
         postInputs
       );
       const jwt = response.data.token;
-      console.log(response.data.token);
-      console.log(jwt);
-
       localStorage.setItem("token", "Bearer " + jwt);
-      console.log("Set");
       navigate("/blogs");
     } catch (e) {
       alert(e);

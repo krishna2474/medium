@@ -10,13 +10,13 @@ import { useEffect } from "react";
 export default function App() {
   const navigate = useNavigate();
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Replace 'token' with your actual token key
+    const token = localStorage.getItem("token");
     if (token) {
-      navigate("/blogs"); // Redirect to /blogs if token exists
+      navigate("/blogs");
     } else {
-      navigate("/"); // Redirect to / if token does not exist
+      navigate("/signin");
     }
-  }, [navigate]);
+  }, []);
   return (
     <>
       <AppBar />

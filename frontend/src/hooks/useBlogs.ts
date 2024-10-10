@@ -16,8 +16,6 @@ export const useBlogs = () => {
   const [blogs, setBlogs] = useState<Blogs[]>([]);
   const nav = useNavigate();
   useEffect(() => {
-    console.log(localStorage.getItem("token"));
-
     axios
       .get(`${BACKEND_URL}/api/v1/blog/bulk`, {
         headers: {

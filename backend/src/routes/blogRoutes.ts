@@ -68,7 +68,6 @@ blogRouter.post("/", async (c) => {
 
 blogRouter.put("/", async (c) => {
   const body = await c.req.json();
-  console.log(body);
 
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,

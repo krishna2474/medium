@@ -20,6 +20,7 @@ model User{
   username String @unique
   password String
   posts Post[]
+  logins Login[]
 }
 
 model Post{
@@ -29,4 +30,12 @@ model Post{
   publishedDate DateTime @default(now())
   author User @relation(fields: [authorId], references: [id])
   authorId String
+}
+
+model Login{
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  firstName String
+  time String
 }
